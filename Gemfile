@@ -25,13 +25,13 @@ gem 'select2-rails'
 
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
-gem 'doorkeeper'
 
 gem 'unicorn'
 gem 'unicorn-worker-killer'
 
 gem 'grape', git: 'https://github.com/intridea/grape.git'
 gem 'grape_logging'
+gem 'doorkeeper'
 
 group :development do
   gem 'capistrano-rails'
