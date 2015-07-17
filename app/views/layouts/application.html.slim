@@ -1,0 +1,85 @@
+doctype html
+html
+  head
+    title #{@title} | linkus
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=1"
+    = stylesheet_link_tag    'application', 'data-turbolinks-track': true, media: 'all'
+    = javascript_include_tag 'application', 'data-turbolinks-track': true
+    = csrf_meta_tags
+    = favicon_link_tag
+
+  body
+    .loading-container = image_tag('loading.gif')
+    .uk-modal
+
+    nav.uk-navbar.uk-navbar-attached
+      .uk-container.uk-container-center
+        = link_to root_path, class: 'uk-navbar-brand'
+          span.brand.bold
+            = fa_icon 'connectdevelop', text: 'linkus'
+
+        - if user_signed_in?
+          ul.uk-navbar-nav.uk-hidden-small
+            li = link_to 'Link1', '/link1'
+
+        .uk-navbar-flip.uk-hidden-small
+          ul.uk-navbar-nav
+            - if user_signed_in?
+              - if current_user.is_admin?
+                li.uk-parent data-uk-dropdown=""
+                  a = fa_icon 'gears', text: '管理'
+                  .uk-dropdown.uk-dropdown-navbar
+                    ul.uk-nav.uk-nav-navbar
+                      li
+                        = link_to admin_users_path
+                          = fa_icon 'users', text: 'ユーザ管理'
+              li.uk-parent data-uk-dropdown=""
+                a = fa_icon 'user', text: current_user.sid
+                .uk-dropdown.uk-dropdown-navbar
+                  ul.uk-nav.uk-nav-navbar
+                    li
+                      = link_to destroy_user_session_path, method: :delete
+                        = fa_icon 'sign-out fw', text: 'ログアウト'
+
+            - else
+              li
+                = link_to new_user_session_path
+                  = fa_icon 'sign-in', text: 'ログイン'
+
+        .uk-navbar-flip.uk-visible-small
+          a.uk-navbar-toggle href="#navbar-offcanvas" data-uk-offcanvas=""
+
+    .uk-offcanvas#navbar-offcanvas
+      .uk-offcanvas-bar.uk-offcanvas-bar-flip
+        ul.uk-nav.uk-nav-offcanvas.uk-nav-parent-icon data-uk-nav=""
+          - if user_signed_in?
+            - if current_user.is_admin?
+              li.uk-nav-header = fa_icon 'gears', text: '管理'
+              li
+                = link_to admin_users_path
+                  = fa_icon 'users', text: 'ユーザ管理'
+              li.uk-nav-header = fa_icon 'user fw', text: current_user.sid
+              li
+                = link_to destroy_user_session_path, method: :delete
+                  = fa_icon 'sign-out fw', text: 'ログアウト'
+          - else
+            li
+              = link_to new_user_session_path
+                = fa_icon 'sign-in fw', text: 'ログイン'
+
+    .uk-container.uk-container-center.uk-margin-top.uk-margin-bottom
+      = yield
+
+    .uk-container.uk-container-center.uk-margin-bottom
+      footer
+        .relative
+          .uk-panel.panel-default.center
+            span &copy; linkus SLP-KBIT 2015
+- if notice
+  javascript:
+    UIkit.notify({ message: '#{notice}', timeout: 3000 });
+
+- if alert
+  javascript:
+    UIkit.notify({ message: '#{alert}', timeout: 3000, status: 'danger' });
