@@ -1,0 +1,39 @@
+.uk-overflow-container
+  table.uk-table.uk-table-striped
+    thead
+      tr
+        th style="width: 150px;"
+        th.bold.uk-text-center style="width: 100px;" = sort_link(@search, :sid, '学籍番号')
+        th.bold.uk-text-center style="width: 50px;" = sort_link(@search, :role, '管理者')
+        th.bold.uk-text-center style="width: 50px;" = sort_link(@search, :status, '承認')
+        th.bold.uk-text-center style="width: 150px;" = sort_link(@search, :email, 'メールアドレス')
+        th.bold.uk-text-center style="width: 150px;" = sort_link(@search, :name, '名前')
+        th.bold.uk-text-center style="width: 50px;" = sort_link(@search, :laboratory, '研究室')
+        th.bold.uk-text-center style="width: 100px;" = sort_link(@search, :position, '役職')
+        th.bold.uk-text-center style="width: 150px;" = sort_link(@search, :last_sign_in_at, '最終ログイン時間')
+    tbody
+      - users.each do |user|
+        - user = user.decorate
+        tr
+          td
+            - unless user.access_locked?
+              = link_to edit_admin_user_path(user.id), class: 'uk-button uk-button-mini uk-button-success uk-margin-small-right', remote: true
+                = fa_icon 'pencil', text: '編集'
+              = link_to lock_admin_user_path(user.id), class: 'uk-button uk-button-mini', method: :post, remote: true
+                = fa_icon 'lock', text: '無効化'
+            - else
+              = link_to unlock_admin_user_path(user.id), class: 'uk-button uk-button-mini uk-button-primary uk-margin-small-right', method: :post, remote: true
+                = fa_icon 'level-up', text: '有効化'
+              = link_to admin_user_path(user.id), class: 'uk-button uk-button-mini uk-button-danger', method: :delete, remote: true
+                = fa_icon 'trash', text: '削除'
+
+          td.uk-text-center #{user.sid}
+          td.uk-text-center = fa_icon 'check' if user.is_admin?
+          td.uk-text-center = fa_icon 'check' if user.is_verified?
+          td.uk-text-center #{user.email}
+          td.uk-text-center #{user.name}
+          td.uk-text-center #{user.laboratory}
+          td.uk-text-center #{user.position}
+          td.uk-text-center #{user.last_sign_in_at}
+coffee:
+  $('.select2').select2()

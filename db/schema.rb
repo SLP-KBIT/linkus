@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20150717133715) do
     t.integer  "position",            default: 0,  null: false
     t.string   "phone",               default: "", null: false
     t.string   "address"
-    t.datetime "birthday"
+    t.date     "birthday"
     t.integer  "role",                default: 0,  null: false
     t.integer  "status",              default: 0,  null: false
     t.string   "provider"

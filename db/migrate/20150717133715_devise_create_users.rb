@@ -36,7 +36,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.integer :position, null: false, default: 0
       t.string :phone, null: false, default: ''
       t.string :address
-      t.datetime :birthday
+      t.date :birthday
       t.integer :role, null: false, default: 0
       t.integer :status, null: false, default: 0
 
