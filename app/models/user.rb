@@ -4,6 +4,11 @@ class User < ActiveRecord::Base
   before_save :update_sid!
   before_save :check_status!
 
+  validates :email, format: {
+    with:    /\A.+@(.+\.kagawa-u\.ac\.jp\z|stu\.kagawa-u\.ac\.jp\z)/,
+    message: 'は大学のもの(kagawa-u.ac.jp)を利用してください。'
+  }
+
   LABORATORY = %w(無所属 富永研 林研 八重樫研 垂水研 安藤研 最所研 その他).freeze
   POSITION = %w(なし 会計 所長 副所長 会計 広報 物品 旅行 事務).freeze
 

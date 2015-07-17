@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def verified_user!
-    return if current_user.is_verified?
+    return if current_user.is_verified? || current_user.is_admin?
     sign_out
     redirect_to root_path
   end
