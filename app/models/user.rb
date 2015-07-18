@@ -1,5 +1,41 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                  :integer          not null, primary key
+#  email               :string           default(""), not null
+#  encrypted_password  :string           default(""), not null
+#  remember_created_at :datetime
+#  sign_in_count       :integer          default(0), not null
+#  current_sign_in_at  :datetime
+#  last_sign_in_at     :datetime
+#  current_sign_in_ip  :inet
+#  last_sign_in_ip     :inet
+#  failed_attempts     :integer          default(0), not null
+#  unlock_token        :string
+#  locked_at           :datetime
+#  sid                 :string           not null
+#  name                :string
+#  laboratory          :integer          default(0), not null
+#  position            :integer          default(0), not null
+#  phone               :string           default(""), not null
+#  address             :string
+#  birthday            :date
+#  role                :integer          default(0), not null
+#  status              :integer          default(0), not null
+#  provider            :string
+#  uid                 :string
+#  token               :string
+#  raw                 :text
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#
+
 class User < ActiveRecord::Base
   devise :database_authenticatable, :rememberable, :trackable, :validatable, :lockable, :omniauthable
+
+  has_many :group_users
+  has_many :groups, through: :group_users
 
   before_save :update_sid!
   before_save :check_status!

@@ -7,10 +7,10 @@ class UserDecorator < Draper::Decorator
   end
 
   def laboratory
-    User::LABORATORY[object.laboratory.to_i]
+    User::LABORATORY[object.laboratory]
   end
 
   def position
-    User::POSITION[object.position.to_i]
+    User::POSITION[object.position]
   end
 end
