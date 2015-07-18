@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20150718005838) do
   create_table "group_users", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "group_id"
+    t.integer  "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -27,8 +28,7 @@ ActiveRecord::Schema.define(version: 20150718005838) do
   add_index "group_users", ["user_id"], name: "index_group_users_on_user_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
-    t.integer  "name"
-    t.integer  "position"
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

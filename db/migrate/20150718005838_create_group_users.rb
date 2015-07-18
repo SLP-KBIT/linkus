@@ -3,6 +3,7 @@ class CreateGroupUsers < ActiveRecord::Migration
     create_table :group_users do |t|
       t.integer :user_id
       t.integer :group_id
+      t.integer :position
 
       t.timestamps null: false
     end
