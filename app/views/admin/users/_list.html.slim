@@ -31,7 +31,7 @@
           td.uk-text-center = fa_icon 'check' if user.is_admin?
           td.uk-text-center = fa_icon 'check' if user.is_verified?
           td.uk-text-center = user.name
-          td.uk-text-center = user.group_users.map { |gu| gu.decorate.name_and_position }.join(',')
+          td.uk-text-center = user.group_users.includes(:group).map { |gu| gu.decorate.name_and_position }.join(',')
           td.uk-text-center = user.laboratory
           td.uk-text-center = user.position
           td.uk-text-center = user.last_sign_in_at
