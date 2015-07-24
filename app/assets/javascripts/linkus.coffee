@@ -3,4 +3,3 @@ $(window).on 'page:fetch', ->
 
 $(window).on 'page:load page:restore page:change', ->
   $('.loading-container').hide()
-
