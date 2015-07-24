@@ -1,7 +1,7 @@
 class GroupUserDecorator < Draper::Decorator
   delegate_all
 
-  def position
-    GroupUser::POSITION[object.position]
+  def name_and_position
+    "#{object.group.name}(#{GroupUser::POSITION[object.position]})"
   end
 end

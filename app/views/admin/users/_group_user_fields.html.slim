@@ -1,0 +1,6 @@
+.nested-fields
+  .uk-form-row
+    = f.collection_select(:group_id, Group.all, :id, :name, {}, { class: 'uk-grid-1-2 select2-form' })
+    = f.select :position, GroupUser::Select::POSITION, {}, { class: 'uk-width-1-2 select2-form' }
+    = link_to_remove_association f, class: 'uk-button uk-button-danger uk-button-mini'
+      = fa_icon 'remove', text: '削除'

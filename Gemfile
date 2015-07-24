@@ -22,6 +22,7 @@ gem 'ransack'
 gem 'kaminari'
 gem 'draper'
 gem 'select2-rails'
+gem 'cocoon'
 
 gem 'omniauth'
 gem 'omniauth-google-oauth2'

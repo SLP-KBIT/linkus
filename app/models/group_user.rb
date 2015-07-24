@@ -15,4 +15,8 @@ class GroupUser < ActiveRecord::Base
   belongs_to :group
 
   POSITION = %w(なし リーダー サブリーダー).freeze
+
+  module Select
+    POSITION = POSITION.map.with_index { |pos, i| [pos, i] }
+  end
 end

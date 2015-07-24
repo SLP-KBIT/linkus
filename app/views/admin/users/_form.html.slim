@@ -45,6 +45,12 @@
       = f.select :position, User::Select::POSITION, {}, { class: 'uk-width-1-1 select2-form' }
     .uk-form-row
       = f.select :role, User::Select::ROLE, {}, { class: 'uk-width-1-1 select2-form' }
+    .uk-form-row
+      = f.fields_for :group_users do |gu|
+        = render partial: 'group_user_fields', locals: { f: gu }
+      .
+        = link_to_add_association f, :group_users, class: 'uk-button uk-button-success uk-button-mini'
+          = fa_icon 'plus', text: '追加'
 
     .uk-modal-footer.uk-text-right
       .uk-button-group
@@ -55,3 +61,5 @@
 
 coffee:
   $('.select2-form').select2()
+  $('form').on 'cocoon:after-insert', ->
+    $('select.select2-form').select2()

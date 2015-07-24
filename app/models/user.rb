@@ -40,6 +40,8 @@ class User < ActiveRecord::Base
   before_save :update_sid!
   before_save :check_status!
 
+  accepts_nested_attributes_for :group_users, reject_if: :all_blank, allow_destroy: true
+
   validates :email, format: {
     with:    /\A.+@(.+\.kagawa-u\.ac\.jp\z|stu\.kagawa-u\.ac\.jp\z)/,
     message: 'は大学のもの(kagawa-u.ac.jp)を利用してください。'

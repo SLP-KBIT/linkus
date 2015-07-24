@@ -36,7 +36,8 @@ class Admin::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :birthday, :role, :laboratory, :position, :phone, :address
+      :birthday, :role, :laboratory, :position, :phone, :address,
+      group_users_attributes: [:id, :group_id, :position, :_destroy]
     )
   end
 

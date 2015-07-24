@@ -94,6 +94,7 @@ GEM
     capistrano-rails (1.1.3)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
+    cocoon (1.2.6)
     codeclimate-test-reporter (0.4.7)
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
@@ -369,6 +370,7 @@ DEPENDENCIES
   bullet
   capistrano-faster-assets
   capistrano-rails
+  cocoon
   codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
   database_cleaner
