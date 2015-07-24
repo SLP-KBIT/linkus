@@ -1,0 +1,10 @@
+machine:
+  timezone:
+    Asia/Tokyo
+  ruby:
+    version: 2.2.2
+test:
+  override:
+    - "bundle exec bin/rubocop_parallel": { parallel: true }
+    - "RAILS_ENV=test bundle exec rake db:migrate:reset"
+    - "bin/rspec"
