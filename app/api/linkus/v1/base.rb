@@ -13,7 +13,7 @@ module Linkus::V1
 
     helpers do
       def current_resource_owner
-        Account.find_by(id: doorkeeper_token.resource_owner_id) if doorkeeper_token
+        User.find_by(id: doorkeeper_token.resource_owner_id) if doorkeeper_token
       end
     end
 
