@@ -54,6 +54,14 @@ class User < ActiveRecord::Base
     POSITION = POSITION.map.with_index { |pos, i| [pos, i] }
   end
 
+  def schema
+    {
+      uid: uid,
+      sid: sid,
+      name: name
+    }
+  end
+
   def self.find_for_google_oauth2(auth)
     user = User.where(email: auth.info.email).first
     return update_google!(user, auth) if user

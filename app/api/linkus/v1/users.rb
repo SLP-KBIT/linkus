@@ -3,7 +3,7 @@ module Linkus::V1
     resource :users do
       desc 'get user information'
       get 'me' do
-        current_resource_owner.to_json
+        current_resource_owner.schema
       end
     end
   end
