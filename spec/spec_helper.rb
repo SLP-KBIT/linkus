@@ -1,5 +1,8 @@
 require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
+require 'active_record'
+require 'factory_girl_rails'
+require 'database_cleaner'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
