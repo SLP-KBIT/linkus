@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   use_doorkeeper
   mount Linkus::API => '/api'
   devise_for :users, controllers: {
-    omniauth_callbacks: 'users/omniauth_callbacks'
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    sessions: 'users/sessions'
   }
   root 'dashboards#index'
 
