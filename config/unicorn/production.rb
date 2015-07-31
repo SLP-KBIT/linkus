@@ -14,6 +14,10 @@ pid "#{app_shared_path}/tmp/pids/unicorn.pid"
 
 preload_app true
 
+before_exec do
+  ENV['BUNDLE_GEMFILE'] = "#{app_path}/current/Gemfile"
+end
+
 before_fork do |server, worker|
   ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
   old_pid = "#{ server.config[:pid] }.oldbin"
