@@ -3,6 +3,7 @@ set :branch, 'master'
 set :rails_env, 'production'
 set :migration_role, 'db'
 
+set :deploy_to, '/home/rails/deploy/linkus'
 server 'linkus_staging', user: 'rails', roles: %w(web app db)
 
 set :ssh_options, {
