@@ -1,0 +1,26 @@
+.uk-overflow-container
+  table.uk-table.uk-table-striped
+    thead
+      tr
+        th.bold.uk-text-center style="width: 100px;" = sort_link(@search, :sid, '学籍番号')
+        th.bold.uk-text-center style="width: 50px;" = sort_link(@search, :role, '管理者')
+        th.bold.uk-text-center style="width: 50px;" = sort_link(@search, :status, '承認')
+        th.bold.uk-text-center style="width: 150px;" = sort_link(@search, :name, '名前')
+        th.bold.uk-text-center style="width: 150px;" = sort_link(@search, :group, 'チーム')
+        th.bold.uk-text-center style="width: 50px;" = sort_link(@search, :laboratory, '研究室')
+        th.bold.uk-text-center style="width: 100px;" = sort_link(@search, :position, '役職')
+        th.bold.uk-text-center style="width: 150px;" = sort_link(@search, :last_sign_in_at, '最終ログイン時間')
+    tbody
+      - users.each do |user|
+        - user = user.decorate
+        tr
+          td.uk-text-center = user.sid
+          td.uk-text-center = fa_icon 'check' if user.is_admin?
+          td.uk-text-center = fa_icon 'check' if user.is_verified?
+          td.uk-text-center = user.name
+          td.uk-text-center = user.group_users.includes(:group).map { |gu| gu.decorate.name_and_position }.join(',')
+          td.uk-text-center = user.laboratory
+          td.uk-text-center = user.position
+          td.uk-text-center = user.last_sign_in_at
+coffee:
+  $('.select2').select2()
