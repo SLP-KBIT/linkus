@@ -39,6 +39,8 @@ html
                 .uk-dropdown.uk-dropdown-navbar
                   ul.uk-nav.uk-nav-navbar
                     li
+                      = link_to edit_user_path(current_user.id)
+                        = fa_icon 'pencil fw', text: '編集'
                       = link_to destroy_user_session_path, method: :delete
                         = fa_icon 'sign-out fw', text: 'ログアウト'
 

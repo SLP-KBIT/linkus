@@ -1,0 +1,54 @@
+- title = 'ユーザの更新'
+- submit = '更新'
+h4.bold
+  = fa_icon 'user', text: title
+
+= form_for current_user, html: { class: 'uk-form uk-form-stacked' }, remote: true do |f|
+
+  .uk-form-row
+    .uk-form-icon
+      i.uk-icon-envelope
+      = f.text_field :email, autofocus: true, placeholder: 'メールアドレス', style: 'padding-left: 30px;', disabled: true
+    .uk-form-help-block#user-email-error
+  .uk-form-row
+    .uk-form-icon
+      i.uk-icon-font
+      = f.text_field :name, placeholder: '名前', style: 'padding-left: 30px;', disabled: true
+    .uk-form-help-block#user-name-error
+  .uk-form-row
+    .uk-form-icon
+      i.uk-icon-phone
+      = f.text_field :phone, placeholder: '電話番号', style: 'padding-left: 30px;'
+    .uk-form-help-block#user-phone-error
+  .uk-form-row
+    .uk-form-icon
+      i.uk-icon-home
+      = f.text_field :address, placeholder: '住所', style: 'padding-left: 30px;'
+    .uk-form-help-block#user-address-error
+  .uk-form-row
+    .uk-form-icon
+      i.uk-icon-birthday-cake
+      = f.text_field :birthday, placeholder: '誕生日', class: 'uk-width-1-1', "data-uk-datepicker" => "{format: 'YYYY-MM-DD'}", readonly: true
+    .uk-form-help-block#user-birthday-error
+  .uk-form-row
+    = f.select :laboratory, User::Select::LABORATORY, {}, { class: 'uk-width-1-1 select2-form' }
+  .uk-form-row
+    = f.select :position, User::Select::POSITION, {}, { class: 'uk-width-1-1 select2-form' }
+  .uk-form-row
+    = f.select :role, User::Select::ROLE, {}, { class: 'uk-width-1-1 select2-form' }
+  .uk-form-row
+    = f.fields_for :group_users do |gu|
+      = render partial: 'group_user_fields', locals: { f: gu }
+    .
+      = link_to_add_association f, :group_users, class: 'uk-button uk-button-success uk-button-mini'
+        = fa_icon 'plus', text: '追加'
+  .uk-button-group
+    button.uk-button.uk-button-primary
+      = fa_icon 'floppy-o', text: submit
+    button.uk-button.uk-modal-close
+      = fa_icon 'times', text: 'キャンセル'
+
+coffee:
+  $('.select2-form').select2()
+  $('form').on 'cocoon:after-insert', ->
+    $('select.select2-form').select2()

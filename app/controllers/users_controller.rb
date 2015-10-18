@@ -6,4 +6,7 @@ class UsersController < ApplicationController
     @search = User.ransack(params[:q])
     @users = @search.result.page(params[:page]).per(20)
   end
+
+  def edit
+  end
 end
