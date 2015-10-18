@@ -42,6 +42,8 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :group_users, reject_if: :all_blank, allow_destroy: true
 
+  validates_uniqueness_of :email
+
   LABORATORY = %w(無所属 富永研 林研 八重樫研 垂水研 安藤研 最所研 その他).freeze
   POSITION = %w(なし 会計 所長 副所長 会計 広報 物品 旅行 事務).freeze
 
