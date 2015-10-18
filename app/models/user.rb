@@ -42,11 +42,6 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :group_users, reject_if: :all_blank, allow_destroy: true
 
-  validates :email, format: {
-    with:    /\A.+@(.+\.kagawa-u\.ac\.jp\z|stu\.kagawa-u\.ac\.jp\z)/,
-    message: 'は大学のもの(kagawa-u.ac.jp)を利用してください。'
-  }
-
   LABORATORY = %w(無所属 富永研 林研 八重樫研 垂水研 安藤研 最所研 その他).freeze
   POSITION = %w(なし 会計 所長 副所長 会計 広報 物品 旅行 事務).freeze
 
@@ -65,6 +60,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_google_oauth2(auth)
+    return false unless check_email(auth.info.email)
     user = User.where(email: auth.info.email).first
     return update_google!(user, auth) if user
 
@@ -140,5 +136,14 @@ class User < ActiveRecord::Base
       flag = false unless try(target).present?
     end
     self.status = flag ? 100 : 0
+  end
+
+  private
+
+  def check_email(email)
+    # TODO: 外部の人を許可する場合はこの辺で処理を入れる
+    # return true if white_list.index(email)
+    return false unless email.split('@')[1].include?('kagawa-u.ac.jp')
+    true
   end
 end
