@@ -141,8 +141,7 @@ class User < ActiveRecord::Base
   end
 
   def self.check_email(email)
-    # TODO: 外部の人を許可する場合はこの辺で処理を入れる
-    # return true if white_list.index(email)
+    return true if WhiteList.where(active: true).pluck(:email).index(email)
     return false unless email.split('@')[1].include?('kagawa-u.ac.jp')
     true
   end
